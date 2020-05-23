@@ -8,6 +8,13 @@ function createGridDivs() {
     array.push(grid.appendChild(document.createElement('div')));
     i++;
   }
+  i = 0;
+  while (i < 10) {
+    let taken = document.createElement('div');
+    taken.classList.add('taken');
+    array.push(grid.appendChild(taken));
+    i++;
+  }
   return array;
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -71,9 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[currentPosition + index].classList.add('tetromino');
     });
   }
+
   function undraw() {
     current.forEach((index) => {
       squares[currentPosition + index].classList.remove('tetromino');
     });
   }
+  function freeze() {
+    if (
+      current.some((index) =>
+        squares[currentPosition + index + width].classList.contains('taken')
+      )
+    ) {
+      current.forEach((index) =>
+        squares[currentPosition + index].classList.add('taken')
+      );
+      random = Math.floor(Math.random() * tetrominoes.length);
+      current = tetrominoes[random][currentRotation];
+      currentPosition = 4;
+      draw();
+    }
+  }
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+    freeze();
+  }
+
+  let timerId = setInterval(moveDown, 1000);
 });
