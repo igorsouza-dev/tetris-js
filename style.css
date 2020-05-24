@@ -18,3 +18,22 @@ body {
 .tetromino {
   background-color: blue;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.mini-grid {
+  width: 80px;
+  height: 80px;
+  margin-left: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  background: yellow;
+}
+
+.mini-grid div {
+  width: 20px;
+  height: 20px;
+}
